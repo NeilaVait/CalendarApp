@@ -1,0 +1,72 @@
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+}
+
+#calendarContainer {
+  width: 800px;
+}
+
+#header {
+  display: flex;
+  margin-bottom: 10px;
+  color: grey;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#header > * {
+  width: 100px;
+}
+
+#calendar {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#day {
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+#day:hover {
+  background-color: aliceblue;
+}
+
+#eventContainer {
+  width: 400px;
+}
+
+#eventForm > * {
+  width: 100%;
+}
+
+#eventForm > label,
+select {
+  display: block;
+  margin: 10px 0 5px 0;
+}
+
+#eventForm > input,
+select {
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 5px;
+  padding: 3px;
+}
+
+#eventForm > input,
+select:focus {
+  outline-color: grey;
+}
+
+#eventForm > select {
+  width: 50%;
+}
