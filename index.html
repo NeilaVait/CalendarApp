@@ -29,26 +29,43 @@
 
   <div id="eventContainer">
     <h2>Add event</h2>
-    <form id="eventForm" action="">
-
+    <div id="eventForm">
       <label for="">Title</label>
-      <input required maxlength="50" type="text">
+      <input id="title" required maxlength="50" type="text">
       <label for="">Date</label>
-      <input type="text" required>
+      <p id="date"></p>
       <label for="">Start time</label>
-      <input type="text" required>
+      <input id=start type="text" required placeholder="hh:mm">
       <label for="">End time</label>
-      <input type="text" required>
-      <select name="type" id="type">
+      <input id='end' type="text" required placeholder="hh:mm">
+      <select id='select' name="type" id="type">
         <option value="Meeting">Meeting</option>
         <option value="Call">Call</option>
         <option value="Out of office">Out of office</option>
       </select>
       <label for="">Description (optional)</label>
-      <input type="text">
+      <input id='desc' type="text">
 
+      <div id="buttonContainer">
+        <button id="add">Add</button>
+        <button id="close">Close</button>
+      </div>
+    </div>
+  </div>
 
-    </form>
+  <div id="eventDetails">
+    <h2>Event</h2>
+    <p id="titleDt"></p>
+    <p id="dateDt"></p>
+    <p id="startDt"></p>
+    <p id="endDt"></p>
+    <p id='typeDt'></p>
+    <p id="descDt"></p>
+
+    <div id="buttonContainer">
+      <button id="deleteDt">Delete</button>
+      <button id="closeDt">Close</button>
+    </div>
   </div>
 
 
