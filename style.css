@@ -38,6 +38,15 @@ body {
   cursor: pointer;
 }
 
+#currDay {
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid grey;
+  cursor: pointer;
+  background-color: rgb(231, 244, 255);
+}
+
 .event {
   border-radius: 5px;
   font-size: 12px;
@@ -106,4 +115,13 @@ select:focus {
 #eventDetails {
   width: 350px;
   display: none;
+}
+
+#titleErr,
+#endErr,
+#startErr,
+#formErr {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }

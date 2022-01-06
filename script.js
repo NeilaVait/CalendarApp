@@ -1,13 +1,18 @@
 let clickedDate = null;
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
 
+const timeRegex = /^(?:[01][0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?$/;
+
 const calendar = document.getElementById('calendar');
 const dateInput = document.getElementById('date');
 const eventContainer = document.getElementById('eventContainer');
 const detailsContainer = document.getElementById('eventDetails');
 const title = document.getElementById('title');
+const titleErr = document.getElementById('titleErr');
 const start = document.getElementById('start');
+const startErr = document.getElementById('startErr');
 const end = document.getElementById('end');
+const endErr = document.getElementById('endErr');
 const select = document.getElementById('select');
 const desc = document.getElementById('desc');
 const inputs = [title, start, end, desc];
@@ -74,6 +79,10 @@ function render() {
 
       const eventOnDay = events.find((e) => e.date === dateString);
 
+      if (i - emptyDays === day) {
+        daySquare.id = 'currDay';
+      }
+
       if (eventOnDay) {
         const eventBubble = document.createElement('div');
         eventBubble.classList.add('event');
@@ -95,11 +104,12 @@ function render() {
 }
 
 function addEvent() {
-  console.log('click');
-  if (!checkIfEventValid()) return;
+  if (!checkFormValues()) {
+    return;
+  }
   const event = {
     title: title.value,
-    date: dateInput.value,
+    date: dateInput.innerText,
     startTime: start.value,
     endTime: end.value,
     type: select.options[select.selectedIndex].text,
@@ -108,18 +118,25 @@ function addEvent() {
   events.push(event);
   localStorage.setItem('events', JSON.stringify(events));
   closeAddEvent();
+  alert('Event added');
 }
 
-function checkIfEventValid() {
-  if (!title.value) return;
-  if (!start.value) return;
-  if (!end.value) return;
-  if (start.value > end.value) return;
+function checkFormValues() {
+  if (title.value.length === 0) return false;
+  if (start.value.length === 0) return false;
+  if (end.value.length === 0) return false;
+  if (start.value.length === 0) return false;
+  console.log('start.value', start.value);
+  if (start.value >= end.value) {
+    startErr.style.display = 'block';
+    startErr.innerText = 'Wish I could turn back time...';
+    return;
+  }
+
   return true;
 }
 
 function closeAddEvent() {
-  console.log('closed');
   eventContainer.style.display = 'none';
   detailsContainer.style.display = 'none';
   clearInputs();
@@ -134,10 +151,41 @@ function clearInputs() {
 }
 
 function deleteEvent() {
-  console.log('deleting');
   events = events.filter((e) => e.date !== clicked);
   localStorage.setItem('events', JSON.stringify(events));
   closeAddEvent();
+  alert('Event deleted');
+}
+
+function validateInputs() {
+  title.addEventListener('input', validateTitle);
+  end.addEventListener('input', (e) => validateTime(e.target.value, endErr));
+  start.addEventListener('input', (e) => validateTime(e.target.value, startErr));
+}
+
+function validateTitle(e) {
+  titleErr.style.display = 'block';
+  if (e.target.value.length === 0) {
+    titleErr.innerText = 'Title is required';
+  } else if (title.value.length === 50) {
+    titleErr.innerText = 'Title must not exceed 50 symbols';
+  } else {
+    titleErr.style.display = 'none';
+  }
+}
+
+function validateTimeInput(input) {
+  if (!timeRegex.test(input)) return false;
+  return true;
+}
+
+function validateTime(input, timeName) {
+  timeName.style.display = 'block';
+  if (!validateTimeInput(input)) {
+    timeName.innerText = 'Invalid time input';
+  } else {
+    timeName.style.display = 'none';
+  }
 }
 
 function initButtons() {
@@ -150,3 +198,4 @@ function initButtons() {
 
 initButtons();
 render();
+validateInputs();

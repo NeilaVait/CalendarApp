@@ -29,15 +29,19 @@
 
   <div id="eventContainer">
     <h2>Add event</h2>
+    <span id="formErr"></span>
     <div id="eventForm">
       <label for="">Title</label>
       <input id="title" required maxlength="50" type="text">
+      <span id="titleErr"></span>
       <label for="">Date</label>
       <p id="date"></p>
       <label for="">Start time</label>
-      <input id=start type="text" required placeholder="hh:mm">
+      <input id=start type="text" name="start" required placeholder="hh:mm">
+      <span id="startErr"></span>
       <label for="">End time</label>
-      <input id='end' type="text" required placeholder="hh:mm">
+      <input id='end' type="text" name="end" required placeholder="hh:mm">
+      <span id="endErr"></span>
       <select id='select' name="type" id="type">
         <option value="Meeting">Meeting</option>
         <option value="Call">Call</option>
